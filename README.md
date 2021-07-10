@@ -1,0 +1,2 @@
+[![Build Status](https://travis-ci.com/Insomn1ac/job4j_design.svg?branch=master)](https://travis-ci.com/Insomn1ac/job4j_design)
+[![codecov](https://codecov.io/gh/Insomn1ac/job4j_design/branch/master/graph/badge.svg?token=Z6OVONZUH2)](https://codecov.io/gh/Insomn1ac/job4j_design)
