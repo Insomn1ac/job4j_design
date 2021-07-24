@@ -30,8 +30,9 @@ public class SimpleArrayTest {
         SimpleArray<String> array = new SimpleArray<>();
         array.add("first");
         array.add("second");
+        array.add("third");
         array.remove(0);
-        assertThat(array.get(0), is("second"));
+        assertThat(array.get(1), is("third"));
     }
 
     @Test

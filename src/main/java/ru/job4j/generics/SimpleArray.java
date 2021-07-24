@@ -17,6 +17,7 @@ public class SimpleArray<T> implements Iterable<T> {
         size++;
     }
 
+    @SuppressWarnings("unchecked")
     public T get(int index) {
         Objects.checkIndex(index, size);
         return (T) array[index];
@@ -30,7 +31,7 @@ public class SimpleArray<T> implements Iterable<T> {
     public void remove(int index) {
         Objects.checkIndex(index, size);
         System.arraycopy(array, index + 1, array, index, size - index - 1);
-        size--;
+        array[size--] = null;
     }
 
     @Override
@@ -43,6 +44,7 @@ public class SimpleArray<T> implements Iterable<T> {
                 return point < size;
             }
 
+            @SuppressWarnings("unchecked")
             @Override
             public T next() {
                 if (!hasNext()) {
