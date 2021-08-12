@@ -1,9 +1,6 @@
 package ru.job4j.collection.map;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class User {
     private String name;
@@ -14,6 +11,11 @@ public class User {
         this.name = name;
         this.children = children;
         this.birthday = birthday;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, children, birthday);
     }
 
     @Override
@@ -32,5 +34,11 @@ public class User {
         userObjectMap.put(ivan, new Object());
         userObjectMap.put(ivanTheSecond, new Object());
         System.out.println(userObjectMap);
+        int firstHash = ivan.hashCode() ^ (ivan.hashCode() >>> 16);
+        int secondHash = ivanTheSecond.hashCode() ^ (ivanTheSecond.hashCode() >>> 16);
+        int firstBucket = firstHash & (16 - 1);
+        int secondBucket = secondHash & (16 - 1);
+        System.out.println("first hash = " + firstHash + ", first bucket = " + firstBucket);
+        System.out.println("second hash = " + secondHash + ", second bucket = " + secondBucket);
     }
 }
