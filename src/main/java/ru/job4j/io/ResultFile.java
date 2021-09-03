@@ -15,7 +15,7 @@ public class ResultFile {
 
     public static void main(String[] args) {
         int[][] array = multiple(10);
-        try (FileOutputStream out = new FileOutputStream("result.txt")) {
+        try (FileOutputStream out = new FileOutputStream("C:/projects/job4j_design/src/main/resources/result.txt")) {
             for (int[] row : array) {
                 for (int el : row) {
                     if (el / 10 < 1) {
