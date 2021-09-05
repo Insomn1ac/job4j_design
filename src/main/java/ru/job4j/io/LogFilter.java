@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 public class LogFilter {
     public static List<String> filter(String file) {
         List<String> rsl = new ArrayList<>();
-        try (BufferedReader in = new BufferedReader(new FileReader("C:/projects/job4j_design/src/main/resources/log.txt"))) {
+        try (BufferedReader in = new BufferedReader(new FileReader(file))) {
             rsl = in.lines()
-                    .filter(s -> s.contains("404"))
+                    .filter(s -> Integer.parseInt(s.split(" ")[s.split(" ").length - 2]) == 404)
                     .collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();
@@ -31,10 +31,10 @@ public class LogFilter {
     }
 
     public static void main(String[] args) {
-        List<String> log = filter("C:/projects/job4j_design/src/main/resources/log.txt");
+        List<String> log = filter("./src/main/resources/log.txt");
         for (String s : log) {
             System.out.println(s);
         }
-        save(log, "C:/projects/job4j_design/src/main/resources/404.txt");
+        save(log, "./src/main/resources/404.txt");
     }
 }
