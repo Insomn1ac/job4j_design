@@ -24,14 +24,14 @@ public class Analysis {
             e.printStackTrace();
         }
         try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
-            int i = 0;
+            boolean serverStatus = true;
             for (String t : time) {
-                if (i == 0) {
+                if (serverStatus) {
                     out.print(t + ";");
-                    i++;
-                } else if (i == 1) {
+                    serverStatus = false;
+                } else {
                     out.println(t + ";");
-                    i = 0;
+                    serverStatus = true;
                 }
             }
         } catch (Exception e) {
