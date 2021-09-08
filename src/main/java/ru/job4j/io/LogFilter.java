@@ -10,7 +10,10 @@ public class LogFilter {
         List<String> rsl = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
             rsl = in.lines()
-                    .filter(s -> Integer.parseInt(s.split(" ")[s.split(" ").length - 2]) == 404)
+                    .filter(s -> {
+                        String[] data = (s.split(" "));
+                        return Integer.parseInt(data[data.length - 2]) == 404;
+                    })
                     .collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();
