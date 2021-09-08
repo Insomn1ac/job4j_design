@@ -12,7 +12,7 @@ public class LogFilter {
             rsl = in.lines()
                     .filter(s -> {
                         String[] data = (s.split(" "));
-                        return Integer.parseInt(data[data.length - 2]) == 404;
+                        return data[data.length - 2].equals("404");
                     })
                     .collect(Collectors.toList());
         } catch (Exception e) {
