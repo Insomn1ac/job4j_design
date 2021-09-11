@@ -23,6 +23,19 @@ public class Zip {
         }
     }
 
+    public static void isValid(String[] args) {
+        if (args.length != 3) {
+            throw new IllegalArgumentException("Enter a valid number of arguments!");
+        }
+        Path directory = Paths.get(args[0].replaceFirst("-d=", ""));
+        if (!directory.toFile().exists()) {
+            throw new IllegalArgumentException("Directory doesn't exist.");
+        }
+        if (!directory.toFile().isDirectory()) {
+            throw new IllegalArgumentException("Path to file is not a directory. Enter a valid path.");
+        }
+    }
+
     public static void packSingleFile(File source, File target) {
         try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
             zip.putNextEntry(new ZipEntry(source.getPath()));
@@ -35,9 +48,7 @@ public class Zip {
     }
 
     public static void main(String[] args) throws IOException {
-        if (args.length != 3) {
-            throw new IllegalArgumentException("Enter a valid number of arguments!");
-        }
+        Zip.isValid(args);
         ArgsName arguments = ArgsName.of(args);
         Path directory = Paths.get(arguments.get("d"));
         File output = new File(arguments.get("o"));
