@@ -24,33 +24,34 @@ public class ConsoleChat {
         Scanner sc = new Scanner(System.in);
         while (active) {
             String userMessage = sc.nextLine();
-            if (OUT.equals(userMessage)) {
+            if (OUT.equalsIgnoreCase(userMessage)) {
                 active = false;
                 dialogue = false;
+                logs.add(userMessage);
                 sc.close();
-                saveLog(logs);
             }
-            if (STOP.equals(userMessage)) {
+            if (STOP.equalsIgnoreCase(userMessage)) {
                 dialogue = false;
+                logs.add(userMessage);
             }
-            if (CONTINUE.equals(userMessage)) {
+            if (CONTINUE.equalsIgnoreCase(userMessage)) {
                 dialogue = true;
             }
             if (dialogue) {
                 String answer = answers.get(rand.nextInt(answers.size()));
                 System.out.println(answer);
+                logs.add(userMessage);
                 logs.add(answer);
             }
+            saveLog(logs);
         }
-        logs.add(sc.nextLine());
-        saveLog(logs);
     }
 
     private List<String> readPhrases() {
         List<String> phrases = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new FileReader(botAnswers))) {
             String str = in.readLine();
-            while (str != null) {
+            while (in.ready()) {
                 phrases.add(str);
                 str = in.readLine();
             }
