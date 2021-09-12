@@ -1,6 +1,7 @@
 package ru.job4j.io;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.*;
 
 public class ConsoleChat {
@@ -62,10 +63,9 @@ public class ConsoleChat {
     }
 
     private void saveLog(List<String> log) {
-        try (BufferedWriter out = new BufferedWriter(new FileWriter(path))) {
+        try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(path, Charset.forName("windows-1251"))))) {
             for (String s : log) {
-                out.write(s);
-                out.newLine();
+                out.println(s);
             }
         } catch (Exception e) {
             e.printStackTrace();
