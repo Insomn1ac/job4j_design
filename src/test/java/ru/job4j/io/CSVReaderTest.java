@@ -15,6 +15,7 @@ public class CSVReaderTest {
 
     @Test
     public void whenFilterTwoColumns() throws Exception {
+        CSVReader reader = new CSVReader();
         String data = String.join(
                 System.lineSeparator(),
                 "name;age;last_name;education",
@@ -35,12 +36,13 @@ public class CSVReaderTest {
                 "Jack;25",
                 "William;30"
         ).concat(System.lineSeparator());
-        CSVReader.handle(argsName);
+        reader.handle(argsName);
         Assert.assertEquals(expected, Files.readString(target.toPath()));
     }
 
     @Test
     public void whenFilterOneColumn() throws Exception {
+        CSVReader reader = new CSVReader();
         String data = String.join(
                 System.lineSeparator(),
                 "name;age;last_name;education",
@@ -61,12 +63,13 @@ public class CSVReaderTest {
                 "Jack",
                 "William"
         ).concat(System.lineSeparator());
-        CSVReader.handle(argsName);
+        reader.handle(argsName);
         Assert.assertEquals(expected, Files.readString(target.toPath()));
     }
 
     @Test
     public void whenFilterThreeParameters() throws Exception {
+        CSVReader reader = new CSVReader();
         String data = String.join(
                 System.lineSeparator(),
                 "name;age;last_name;education",
@@ -87,7 +90,7 @@ public class CSVReaderTest {
                 "25;Johnson;Undergraduate",
                 "30;Brown;Secondary special"
         ).concat(System.lineSeparator());
-        CSVReader.handle(argsName);
+        reader.handle(argsName);
         Assert.assertEquals(expected, Files.readString(target.toPath()));
     }
 }
