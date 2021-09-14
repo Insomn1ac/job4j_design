@@ -15,7 +15,6 @@ public class CSVReaderTest {
 
     @Test
     public void whenFilterTwoColumns() throws Exception {
-        CSVReader reader = new CSVReader();
         String data = String.join(
                 System.lineSeparator(),
                 "name;age;last_name;education",
@@ -25,9 +24,10 @@ public class CSVReaderTest {
         );
         File file = temporaryFolder.newFile("source.csv");
         File target = temporaryFolder.newFile("target.csv");
-        ArgsName argsName = ArgsName.of(new String[]{
+        String[] args = new String[]{
                 "-path=" + file.getAbsolutePath(), "-delimiter=;", "-out=" + target.getAbsolutePath(), "-filter=name,age"
-        });
+        };
+        CSVReader reader = new CSVReader(args);
         Files.writeString(file.toPath(), data);
         String expected = String.join(
                 System.lineSeparator(),
@@ -36,13 +36,13 @@ public class CSVReaderTest {
                 "Jack;25",
                 "William;30"
         ).concat(System.lineSeparator());
-        reader.handle(argsName);
+        reader.out(args);
         Assert.assertEquals(expected, Files.readString(target.toPath()));
     }
 
     @Test
     public void whenFilterOneColumn() throws Exception {
-        CSVReader reader = new CSVReader();
+
         String data = String.join(
                 System.lineSeparator(),
                 "name;age;last_name;education",
@@ -52,9 +52,10 @@ public class CSVReaderTest {
         );
         File file = temporaryFolder.newFile("source.csv");
         File target = temporaryFolder.newFile("target.csv");
-        ArgsName argsName = ArgsName.of(new String[]{
+        String[] args = new String[]{
                 "-path=" + file.getAbsolutePath(), "-delimiter=;", "-out=" + target.getAbsolutePath(), "-filter=name"
-        });
+        };
+        CSVReader reader = new CSVReader(args);
         Files.writeString(file.toPath(), data);
         String expected = String.join(
                 System.lineSeparator(),
@@ -63,13 +64,12 @@ public class CSVReaderTest {
                 "Jack",
                 "William"
         ).concat(System.lineSeparator());
-        reader.handle(argsName);
+        reader.out(args);
         Assert.assertEquals(expected, Files.readString(target.toPath()));
     }
 
     @Test
     public void whenFilterThreeParameters() throws Exception {
-        CSVReader reader = new CSVReader();
         String data = String.join(
                 System.lineSeparator(),
                 "name;age;last_name;education",
@@ -79,9 +79,10 @@ public class CSVReaderTest {
         );
         File file = temporaryFolder.newFile("source.csv");
         File target = temporaryFolder.newFile("target.csv");
-        ArgsName argsName = ArgsName.of(new String[]{
+        String[] args = new String[]{
                 "-path=" + file.getAbsolutePath(), "-delimiter=;", "-out=" + target.getAbsolutePath(), "-filter=age,last_name,education"
-        });
+        };
+        CSVReader reader = new CSVReader(args);
         Files.writeString(file.toPath(), data);
         String expected = String.join(
                 System.lineSeparator(),
@@ -90,7 +91,7 @@ public class CSVReaderTest {
                 "25;Johnson;Undergraduate",
                 "30;Brown;Secondary special"
         ).concat(System.lineSeparator());
-        reader.handle(argsName);
+        reader.out(args);
         Assert.assertEquals(expected, Files.readString(target.toPath()));
     }
 }
