@@ -52,12 +52,11 @@ public class CSVReader {
     public void handle(String[] args) {
         CSVReader reader = new CSVReader(args);
         reader.isValid(args);
-        List<String[]> csvOutput = reader.in();
         List<Integer> column = new ArrayList<>();
         for (String f : filter) {
-            column.add(List.of(csvOutput.get(0)).indexOf(f));
+            column.add(List.of(reader.in().get(0)).indexOf(f));
         }
-        for (String[] strings : csvOutput) {
+        for (String[] strings : reader.in()) {
             for (int num : column) {
                 sb.append(strings[num]).append(";");
             }
