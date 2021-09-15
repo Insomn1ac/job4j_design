@@ -12,12 +12,24 @@ public class EchoServer {
                 try (OutputStream out = socket.getOutputStream();
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
-                    out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                    String clientMessage = null;
                     for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
-                        if (str.contains("?msg=Bye")) {
-                            server.close();
-                        }
                         System.out.println(str);
+                        if (str.contains("?msg=")) {
+                            clientMessage = str;
+                        }
+                    }
+                    if (clientMessage != null) {
+                        if (clientMessage.contains("?msg=Exit")) {
+                            out.write("HTTP/1.1 503 Service Unavailable\r\n\r\n".getBytes());
+                            server.close();
+                        } else if (clientMessage.contains("?msg=Hello")) {
+                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                            out.write("Hello".getBytes());
+                        } else {
+                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                            out.write(clientMessage.split("msg=")[1].split(" ")[0].getBytes());
+                        }
                     }
                     out.flush();
                 }
