@@ -53,10 +53,12 @@ public class CSVReader {
         CSVReader reader = new CSVReader(args);
         reader.isValid(args);
         List<Integer> column = new ArrayList<>();
-        for (String f : filter) {
-            column.add(List.of(reader.in().get(0)).indexOf(f));
-        }
         for (String[] strings : reader.in()) {
+            for (int i = 0; i < strings.length; i++) {
+                if (filter.contains(strings[i])) {
+                    column.add(i);
+                }
+            }
             for (int num : column) {
                 sb.append(strings[num]).append(";");
             }
