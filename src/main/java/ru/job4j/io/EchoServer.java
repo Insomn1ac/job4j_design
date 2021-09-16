@@ -13,6 +13,7 @@ public class EchoServer {
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
                     String clientMessage = null;
+                    out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
                         System.out.println(str);
                         if (str.contains("?msg=")) {
@@ -21,13 +22,10 @@ public class EchoServer {
                     }
                     if (clientMessage != null) {
                         if (clientMessage.contains("?msg=Exit")) {
-                            out.write("HTTP/1.1 503 Service Unavailable\r\n\r\n".getBytes());
                             server.close();
                         } else if (clientMessage.contains("?msg=Hello")) {
-                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                             out.write("Hello".getBytes());
                         } else {
-                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                             out.write(clientMessage.split("msg=")[1].split(" ")[0].getBytes());
                         }
                     }
