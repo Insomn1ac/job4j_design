@@ -36,34 +36,26 @@ public class CSVReader {
         }
     }
 
-    private List<String[]> in() {
-        List<String[]> csvRead = new ArrayList<>();
-        try (Scanner sc = new Scanner(new BufferedReader(new FileReader(path.toFile())))) {
-            while (sc.hasNextLine()) {
-                String read = sc.nextLine();
-                csvRead.add(read.split(delimiter));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return csvRead;
-    }
-
     public void handle(String[] args) {
         CSVReader reader = new CSVReader(args);
         reader.isValid(args);
         List<Integer> column = new ArrayList<>();
-        for (String[] strings : reader.in()) {
-            for (int i = 0; i < strings.length; i++) {
-                if (filter.contains(strings[i])) {
-                    column.add(i);
-                }
+        try (Scanner sc = new Scanner(new BufferedReader(new FileReader(path.toFile())))) {
+            while (sc.hasNextLine()) {
+                String[] read = sc.nextLine().split(delimiter);
+                    for (int i = 0; i < read.length; i++) {
+                        if (filter.contains(read[i])) {
+                            column.add(i);
+                        }
+                    }
+                    for (int num : column) {
+                        sb.append(read[num]).append(";");
+                    }
+                    sb.deleteCharAt(sb.length() - 1);
+                    sb.append(System.lineSeparator());
             }
-            for (int num : column) {
-                sb.append(strings[num]).append(";");
-            }
-            sb.deleteCharAt(sb.length() - 1);
-            sb.append(System.lineSeparator());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
