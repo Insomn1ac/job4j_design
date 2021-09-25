@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Car model="Mercedes-Benz W124" year="1993" color="black" isJacked="false">
+    <Engine horsePower="193" torque="270"/>
+    <characteristics>
+        <characteristic>Transmission - mechanic</characteristic>
+        <characteristic>Configuration of engine - V6</characteristic>
+    </characteristics>
+</Car>
