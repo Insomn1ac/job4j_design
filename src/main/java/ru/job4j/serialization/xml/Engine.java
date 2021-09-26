@@ -1,8 +1,20 @@
 package ru.job4j.serialization.xml;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "engine")
 public class Engine {
-    private final int horsePower;
-    private final int torque;
+
+    @XmlAttribute
+    private int horsePower;
+
+    @XmlAttribute
+    private int torque;
+
+    public Engine() {
+
+    }
 
     public Engine(int horsePower, int torque) {
         this.horsePower = horsePower;
@@ -11,7 +23,7 @@ public class Engine {
 
     @Override
     public String toString() {
-        return "Engine{"
+        return "{"
                 + "HP=" + horsePower
                 + ", torque=" + torque
                 + '}';

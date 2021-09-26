@@ -1,14 +1,33 @@
 package ru.job4j.serialization.xml;
 
+import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 
+@XmlRootElement(name = "car")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Car {
-    private final String model;
-    private final String year;
-    private final String color;
-    private final boolean isJacked;
-    private final Engine engine;
-    private final String[] characteristics;
+
+    @XmlAttribute
+    private String model;
+
+    @XmlAttribute
+    private String year;
+
+    @XmlAttribute
+    private String color;
+
+    @XmlAttribute
+    private boolean isJacked;
+
+    private Engine engine;
+
+    @XmlElementWrapper
+    @XmlElement(name = "characteristic")
+    private String[] characteristics;
+
+    public Car() {
+
+    }
 
     public Car(String model, String year, String color, boolean isJacked, Engine engine, String... characteristics) {
         this.model = model;
@@ -21,7 +40,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car{"
+        return "{"
                 + "model='" + model + '\''
                 + ", year='" + year + '\''
                 + ", color='" + color + '\''
