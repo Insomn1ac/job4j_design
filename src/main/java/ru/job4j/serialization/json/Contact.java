@@ -9,6 +9,14 @@ public class Contact {
         this.telegram = telegram;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getTelegram() {
+        return telegram;
+    }
+
     @Override
     public String toString() {
         return "{"
