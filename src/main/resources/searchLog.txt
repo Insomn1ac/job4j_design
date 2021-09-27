@@ -1,0 +1,5 @@
+c:\projects\job4j_design\target\csvReader.jar
+c:\projects\job4j_design\target\duplicatesFinder.jar
+c:\projects\job4j_design\target\find.jar
+c:\projects\job4j_design\target\job4j_design-1.0-SNAPSHOT.jar
+c:\projects\job4j_design\target\original-csvReader.jar
