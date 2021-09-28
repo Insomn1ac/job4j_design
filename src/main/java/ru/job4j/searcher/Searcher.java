@@ -59,10 +59,7 @@ public class Searcher {
         }
     }
 
-    public static void main(String[] args) {
-        Searcher searcher = new Searcher();
-        searcher.isValid(args);
-        Path directory = Paths.get(KEYS.get("-d"));
+    public Predicate<Path> condition() {
         Predicate<Path> condition;
         if ("name".equals(KEYS.get("-t"))) {
             condition = p -> p.toFile().getName().equals(KEYS.get("-n"));
@@ -71,7 +68,14 @@ public class Searcher {
         } else {
             throw new IllegalArgumentException("Enter a \"name\" or \"mask\" key");
         }
-        List<Path> found = searcher.search(directory, condition);
+        return condition;
+    }
+
+    public static void main(String[] args) {
+        Searcher searcher = new Searcher();
+        searcher.isValid(args);
+        Path directory = Paths.get(KEYS.get("-d"));
+        List<Path> found = searcher.search(directory, searcher.condition());
         searcher.out(found);
     }
 }
