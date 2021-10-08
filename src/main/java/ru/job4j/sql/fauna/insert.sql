@@ -29,3 +29,4 @@ insert into fauna (name, avg_age, discovery_date) values ('River wallaby', 5, '1
 insert into fauna (name, avg_age, discovery_date) values ('Otter, north american river', 67, '2016-09-24');
 insert into fauna (name, avg_age, discovery_date) values ('Squirrel, smith''s bush', 8, '1971-07-30');
 insert into fauna (name, avg_age, discovery_date) values ('Vulture, turkey', 69, '1968-04-17');
+insert into fauna (name, avg_age, discovery_date) values ('Rock dove', 59, null);
