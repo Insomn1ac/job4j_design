@@ -28,11 +28,12 @@ insert into product(name, type_id, expired_date, price) values ('"Максибо
 insert into product(name, type_id, expired_date, price) values ('Макароны рожки', 3, '2022-07-04', 59.00);
 insert into product(name, type_id, expired_date, price) values ('Крупа гречневая', 3, '2022-09-14', 107.00);
 
-select name, price, expired_date from product
-where type_id = 1;
+select p.name, p.price, p.expired_date from product as p
+join type as t on p.type_id = t.id
+where t.name like 'СЫР';
 
 select name, price, expired_date from product
-where name ilike '% мороженое' or name ilike 'мороженое %';
+where name ilike '%мороженое%';
 
 select name, expired_date from product
 where expired_date < current_date;
