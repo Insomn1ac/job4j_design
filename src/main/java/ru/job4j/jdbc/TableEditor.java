@@ -17,7 +17,7 @@ public class TableEditor implements AutoCloseable {
 
     private void initConnection() {
         try {
-            Class.forName("org.postgresql.Driver");
+            Class.forName(properties.getProperty("driver_class"));
             String url = properties.getProperty("url");
             String login = properties.getProperty("login");
             String password = properties.getProperty("password");
