@@ -8,8 +8,12 @@ public abstract class AbstractCache<K, V> {
     protected final Map<K, SoftReference<V>> cache = new HashMap<>();
 
     public void put(K key, V value) {
-        SoftReference<V> softVal = new SoftReference<>(value);
-        cache.put(key, softVal);
+        if (value != null && value != "") {
+            SoftReference<V> softVal = new SoftReference<>(value);
+            cache.put(key, softVal);
+        } else {
+            System.out.println("Enter a valid filename");
+        }
     }
 
     public V get(K key) {
