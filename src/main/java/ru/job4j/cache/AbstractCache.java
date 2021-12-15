@@ -8,7 +8,7 @@ public abstract class AbstractCache<K, V> {
     protected final Map<K, SoftReference<V>> cache = new HashMap<>();
 
     public void put(K key, V value) {
-        if (value != null && value != "") {
+        if (value != null && !value.toString().isEmpty()) {
             SoftReference<V> softVal = new SoftReference<>(value);
             cache.put(key, softVal);
         } else {
