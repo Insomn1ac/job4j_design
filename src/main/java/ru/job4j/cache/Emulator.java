@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 public class Emulator {
     private static AbstractCache<String, String> cache;
-    private static final Scanner sc = new Scanner(System.in);
+    private static final Scanner SCANNER = new Scanner(System.in);
 
     private static AbstractCache<String, String> getAbstractCache() {
         System.out.println("Enter a path to directory"
                 + System.lineSeparator());
-        String pathToDir = sc.nextLine();
+        String pathToDir = SCANNER.nextLine();
         cache = new DirFileCache(pathToDir);
         return cache;
     }
@@ -22,7 +22,7 @@ public class Emulator {
                     + "2. File" + System.lineSeparator()
                     + "3. Exit"
             );
-            String userChoice = sc.nextLine();
+            String userChoice = SCANNER.nextLine();
             if ("3".equals(userChoice)) {
                 infCycle = false;
             } else if ("1".equals(userChoice)) {
@@ -33,7 +33,7 @@ public class Emulator {
                 }
                 System.out.println("Enter a name of file"
                         + System.lineSeparator());
-                String file = sc.nextLine().toLowerCase();
+                String file = SCANNER.nextLine().toLowerCase();
                 System.out.println(cache.get(file));
             }
         }
