@@ -12,7 +12,7 @@ public class MaxMinTest {
     @Test
     public void whenFindMax() {
         MaxMin rsl = new MaxMin();
-        Comparator<Integer> comp = Comparator.naturalOrder();
+        Comparator<Integer> comp = Integer::compareTo;
         List<Integer> list = List.of(3, 7, 1, 9, 7);
         Integer expected = 9;
         assertEquals(expected, rsl.max(list, comp));
@@ -21,7 +21,7 @@ public class MaxMinTest {
     @Test
     public void whenFindMin() {
         MaxMin rsl = new MaxMin();
-        Comparator<Integer> comp = Comparator.reverseOrder();
+        Comparator<Integer> comp = Integer::compareTo;
         List<Integer> list = List.of(18, 4, 75, 2, 84, 1, 9);
         Integer expected = 1;
         assertEquals(expected, rsl.min(list, comp));
@@ -30,7 +30,7 @@ public class MaxMinTest {
     @Test
     public void whenFindMinLetter() {
         MaxMin rsl = new MaxMin();
-        Comparator<Character> comp = Comparator.reverseOrder();
+        Comparator<Character> comp = Character::compareTo;
         List<Character> list = List.of('a', 'G', 't', 'A', 'X');
         Character expected = 'A';
         assertEquals(expected, rsl.min(list, comp));
