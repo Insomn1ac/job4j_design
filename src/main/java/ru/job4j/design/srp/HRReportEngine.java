@@ -13,11 +13,10 @@ public class HRReportEngine implements Report {
 
     @Override
     public String generate(Predicate<Employee> filter) {
-        Comparator<Employee> comp = (e1, e2) -> (int) (e2.getSalary() - e1.getSalary());
         StringBuilder text = new StringBuilder();
         text.append("Name; Salary;");
         List<Employee> employees = store.findBy(filter);
-        employees.sort(comp);
+        employees.sort(Comparator.comparingDouble(Employee::getSalary).reversed());
         for (Employee employee : employees) {
             text.append(System.lineSeparator())
                     .append(employee.getName()).append(";")
