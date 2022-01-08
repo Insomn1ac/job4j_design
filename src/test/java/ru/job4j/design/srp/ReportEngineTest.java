@@ -3,8 +3,6 @@ package ru.job4j.design.srp;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
@@ -97,12 +95,16 @@ public class ReportEngineTest {
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
-        Gson report = new GsonBuilder().create();
         Report engine = new JsonReportEngine(store);
         StringBuilder expected = new StringBuilder()
-                .append("[")
-                .append(report.toJson(worker))
-                .append("]");
+                .append("[{\"name\":\"Ivan\",")
+                .append("\"hired\":{\"year\":" + worker.getHired().get(Calendar.YEAR) + ",\"month\":" + worker.getHired().get(Calendar.MONTH))
+                .append(",\"dayOfMonth\":" + worker.getHired().get(Calendar.DAY_OF_MONTH) + ",\"hourOfDay\":" + worker.getHired().get(Calendar.HOUR_OF_DAY))
+                .append(",\"minute\":" + worker.getHired().get(Calendar.MINUTE) + ",\"second\":" + worker.getHired().get(Calendar.SECOND) + "},")
+                .append("\"fired\":{\"year\":" + worker.getFired().get(Calendar.YEAR) + ",\"month\":" + worker.getFired().get(Calendar.MONTH))
+                .append(",\"dayOfMonth\":" + worker.getFired().get(Calendar.DAY_OF_MONTH) + ",\"hourOfDay\":" + worker.getFired().get(Calendar.HOUR_OF_DAY))
+                .append(",\"minute\":" + worker.getFired().get(Calendar.MINUTE) + ",\"second\":" + worker.getFired().get(Calendar.SECOND) + "},")
+                .append("\"salary\":" + worker.getSalary() + "}]");
         assertThat(engine.generate(em -> true), is(expected.toString()));
     }
 
