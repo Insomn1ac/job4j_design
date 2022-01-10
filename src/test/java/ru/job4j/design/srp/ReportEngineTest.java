@@ -112,7 +112,7 @@ public class ReportEngineTest {
     public void whenXmlGenerated() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SXXX");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
         Report engine = new XmlReportEngine(store);
