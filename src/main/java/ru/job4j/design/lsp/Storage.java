@@ -10,5 +10,12 @@ public abstract class Storage {
         return foodList;
     }
 
-    public abstract void execute(Food food);
+    public boolean execute(Food food) {
+        if (accept(food)) {
+            return foodList.add(food);
+        }
+        return false;
+    }
+
+    public abstract boolean accept(Food food);
 }

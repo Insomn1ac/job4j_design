@@ -1,7 +1,6 @@
 package ru.job4j.design.lsp;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Food {
@@ -23,10 +22,12 @@ public class Food {
         return name;
     }
 
-    public double checkPercent() {
-        long bestBefore = ChronoUnit.DAYS.between(createDate, expiryDate);
-        long fromCreateToNow = ChronoUnit.DAYS.between(createDate, LocalDate.now());
-        return (double) fromCreateToNow / bestBefore * 100;
+    public LocalDate getExpiryDate() {
+        return expiryDate;
+    }
+
+    public LocalDate getCreateDate() {
+        return createDate;
     }
 
     public double getPrice() {
