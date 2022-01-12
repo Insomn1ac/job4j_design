@@ -4,11 +4,13 @@ public class OutdoorParking implements Parking {
     private final int placesForCars;
     private final int placesForTrucks;
     private final Vehicle[] vehicles;
+    private int takenSpacesForCars;
+    private int takenSpacesForTrucks;
 
-    public OutdoorParking(int placesForCars, int placesForTrucks, Vehicle[] vehicles) {
+    public OutdoorParking(int placesForCars, int placesForTrucks) {
         this.placesForCars = placesForCars;
         this.placesForTrucks = placesForTrucks;
-        this.vehicles = vehicles;
+        this.vehicles = new Vehicle[placesForCars + placesForTrucks];
     }
 
     public int getPlacesForCars() {
@@ -20,7 +22,15 @@ public class OutdoorParking implements Parking {
     }
 
     public Vehicle[] getVehicles() {
-        return vehicles;
+        return vehicles.clone();
+    }
+
+    public int getTakenSpacesForCars() {
+        return takenSpacesForCars;
+    }
+
+    public int getTakenSpacesForTrucks() {
+        return takenSpacesForTrucks;
     }
 
     @Override
