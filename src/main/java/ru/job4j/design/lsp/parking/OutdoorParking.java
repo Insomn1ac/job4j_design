@@ -13,14 +13,6 @@ public class OutdoorParking implements Parking {
         this.vehicles = new Vehicle[placesForCars + placesForTrucks];
     }
 
-    public int getPlacesForCars() {
-        return placesForCars;
-    }
-
-    public int getPlacesForTrucks() {
-        return placesForTrucks;
-    }
-
     public Vehicle[] getVehicles() {
         return vehicles.clone();
     }
@@ -35,6 +27,24 @@ public class OutdoorParking implements Parking {
 
     @Override
     public boolean park(Vehicle vehicle) {
-        return false;
+        boolean rsl = false;
+        if (vehicle.getCarSize() == 1 && takenSpacesForCars < placesForCars) {
+            vehicles[takenSpacesForCars + takenSpacesForTrucks] = vehicle;
+            takenSpacesForCars++;
+            rsl = true;
+        } else if (vehicle.getCarSize() > 1 && takenSpacesForTrucks < placesForTrucks) {
+            vehicles[takenSpacesForTrucks + takenSpacesForCars] = vehicle;
+            takenSpacesForTrucks++;
+            rsl = true;
+        } else if (vehicle.getCarSize() > 1
+                && takenSpacesForTrucks == placesForTrucks
+                && placesForCars - takenSpacesForCars >= vehicle.getCarSize()) {
+            for (int i = takenSpacesForCars; i <= placesForCars - vehicle.getCarSize(); i++) {
+                vehicles[i] = vehicle;
+                takenSpacesForCars++;
+            }
+            rsl = true;
+        }
+        return rsl;
     }
 }

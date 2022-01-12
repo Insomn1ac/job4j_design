@@ -1,6 +1,5 @@
 package ru.job4j.design.lsp.parking;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
@@ -9,7 +8,6 @@ import static org.junit.Assert.*;
 public class OutdoorParkingTest {
 
     @Test
-    @Ignore
     public void whenParkSomeDifferentCars() {
         Parking parking = new OutdoorParking(2, 1);
         Vehicle car1 = new Car();
@@ -23,7 +21,6 @@ public class OutdoorParkingTest {
     }
 
     @Test
-    @Ignore
     public void whenParkOnlySmallCars() {
         Parking parking = new OutdoorParking(2, 0);
         Vehicle car1 = new Car();
@@ -35,7 +32,6 @@ public class OutdoorParkingTest {
     }
 
     @Test
-    @Ignore
     public void whenParkTrucksOnDifferentSpaces() {
         Parking parking = new OutdoorParking(3, 1);
         Vehicle truck1 = new Truck(4);
@@ -47,7 +43,17 @@ public class OutdoorParkingTest {
     }
 
     @Test
-    @Ignore
+    public void whenParkTrucksOnlyOnTruckSpaces() {
+        Parking parking = new OutdoorParking(0, 3);
+        Vehicle truck1 = new Truck(4);
+        Vehicle truck2 = new Truck(2);
+        Vehicle truck3 = new Truck(2);
+        assertTrue(parking.park(truck1));
+        assertTrue(parking.park(truck2));
+        assertTrue(parking.park(truck3));
+    }
+
+    @Test
     public void whenParkingHasNotEnoughSpaceToPark() {
         Parking parking = new OutdoorParking(0, 0);
         Vehicle car = new Car();
@@ -55,7 +61,6 @@ public class OutdoorParkingTest {
     }
 
     @Test
-    @Ignore
     public void whenParkCarsOnDifferentSpacesThenGetTakenSpaces() {
         OutdoorParking parking = new OutdoorParking(2, 1);
         Vehicle car1 = new Car();
@@ -69,7 +74,6 @@ public class OutdoorParkingTest {
     }
 
     @Test
-    @Ignore
     public void whenReturnAllVehiclesThatBeenParked() {
         OutdoorParking parking = new OutdoorParking(1, 1);
         Vehicle car = new Car();
