@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Storage {
-    List<Food> foodList = new ArrayList<>();
+    private final List<Food> foodList = new ArrayList<>();
 
-    public List<Food> foodInStorage() {
-        return foodList;
+    public List<Food> getFoodList() {
+        return new ArrayList<>(foodList);
     }
 
     public boolean execute(Food food) {

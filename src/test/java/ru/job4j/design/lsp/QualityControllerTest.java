@@ -41,8 +41,8 @@ public class QualityControllerTest {
         expectedTrash.add(cheese);
         List<Food> expectedShop = new ArrayList<>();
         expectedShop.add(meat);
-        assertEquals(expectedShop, shop.foodInStorage());
-        assertEquals(expectedTrash, trash.foodInStorage());
+        assertEquals(expectedShop, shop.getFoodList());
+        assertEquals(expectedTrash, trash.getFoodList());
     }
 
     @Test
@@ -64,7 +64,7 @@ public class QualityControllerTest {
         }
         List<Food> expected = new ArrayList<>();
         expected.add(salmon);
-        assertEquals(expected, warehouse.foodInStorage());
+        assertEquals(expected, warehouse.getFoodList());
     }
 
     @Test
@@ -86,7 +86,7 @@ public class QualityControllerTest {
         }
         List<Food> expected = new ArrayList<>();
         expected.add(edam);
-        assertEquals(expected, shop.foodInStorage());
-        assertThat(shop.foodInStorage().get(0).getPrice(), is(85.0));
+        assertEquals(expected, shop.getFoodList());
+        assertThat(shop.getFoodList().get(0).getPrice(), is(85.0));
     }
 }

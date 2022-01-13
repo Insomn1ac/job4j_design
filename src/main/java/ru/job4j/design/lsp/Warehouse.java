@@ -4,7 +4,6 @@ public class Warehouse extends Storage {
 
     @Override
     public boolean accept(Food food) {
-        PercentChecker checker = new PercentChecker(food);
-        return checker.checkPercent() < 25;
+        return PercentChecker.checkPercent(food) < 25;
     }
 }
