@@ -6,6 +6,7 @@ public class OutdoorParking implements Parking {
     private final Vehicle[] vehicles;
     private int takenSpacesForCars;
     private int takenSpacesForTrucks;
+    private int index = 0;
 
     public OutdoorParking(int placesForCars, int placesForTrucks) {
         this.placesForCars = placesForCars;
@@ -29,18 +30,16 @@ public class OutdoorParking implements Parking {
     public boolean park(Vehicle vehicle) {
         boolean rsl = false;
         if (vehicle.getCarSize() == 1 && takenSpacesForCars < placesForCars) {
-            vehicles[takenSpacesForCars + takenSpacesForTrucks] = vehicle;
+            vehicles[index++] = vehicle;
             takenSpacesForCars++;
             rsl = true;
         } else if (vehicle.getCarSize() > 1 && takenSpacesForTrucks < placesForTrucks) {
-            vehicles[takenSpacesForTrucks + takenSpacesForCars] = vehicle;
+            vehicles[index++] = vehicle;
             takenSpacesForTrucks++;
             rsl = true;
-        } else if (vehicle.getCarSize() > 1
-                && takenSpacesForTrucks == placesForTrucks
-                && placesForCars - takenSpacesForCars >= vehicle.getCarSize()) {
-            for (int i = takenSpacesForCars; i <= placesForCars - vehicle.getCarSize(); i++) {
-                vehicles[i] = vehicle;
+        } else if (vehicles.length - index >= vehicle.getCarSize() && vehicle.getCarSize() > 1) {
+            for (int i = 0; i < vehicle.getCarSize(); i++) {
+                vehicles[index++] = vehicle;
                 takenSpacesForCars++;
             }
             rsl = true;
