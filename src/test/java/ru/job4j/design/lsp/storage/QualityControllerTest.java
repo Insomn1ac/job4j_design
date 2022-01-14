@@ -1,4 +1,4 @@
-package ru.job4j.design.lsp;
+package ru.job4j.design.lsp.storage;
 
 import org.junit.Test;
 
@@ -50,7 +50,7 @@ public class QualityControllerTest {
         List<Food> foodList = new ArrayList<>();
         Food salmon = new Fish(
                         "salmon",
-                        LocalDate.of(2022, 1, 30),
+                        LocalDate.of(2022, 2, 28),
                         LocalDate.of(2022, 1, 8),
                         200.0,
                         5

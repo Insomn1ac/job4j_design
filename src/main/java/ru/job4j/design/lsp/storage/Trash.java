@@ -1,4 +1,4 @@
-package ru.job4j.design.lsp;
+package ru.job4j.design.lsp.storage;
 
 public class Trash extends Storage {
 
