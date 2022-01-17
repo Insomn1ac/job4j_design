@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -16,15 +17,15 @@ public class QualityControllerTest {
         List<Food> foodList = new ArrayList<>();
         Food cheese = new Cheese(
                         "cheese",
-                        LocalDate.of(2021, 1, 1),
-                        LocalDate.of(2020, 1, 1),
+                        LocalDate.now().minusDays(10),
+                        LocalDate.now().minusYears(1),
                         20.0,
                         5
         );
         Food meat = new Meat(
                         "meat",
-                        LocalDate.of(2022, 12, 1),
-                        LocalDate.of(2020, 5, 3),
+                        LocalDate.now().plusDays(20),
+                        LocalDate.now().minusDays(10),
                         15.0,
                         40
         );
@@ -50,8 +51,8 @@ public class QualityControllerTest {
         List<Food> foodList = new ArrayList<>();
         Food salmon = new Fish(
                         "salmon",
-                        LocalDate.of(2022, 2, 28),
-                        LocalDate.of(2022, 1, 8),
+                        LocalDate.now().plusDays(40),
+                        LocalDate.now().minusDays(5),
                         200.0,
                         5
         );
@@ -72,8 +73,8 @@ public class QualityControllerTest {
         List<Food> foodList = new ArrayList<>();
         Food edam = new Cheese(
                         "edam",
-                        LocalDate.of(2022, 1, 30),
-                        LocalDate.of(2021, 1, 8),
+                        LocalDate.now().plusDays(20),
+                        LocalDate.now().minusYears(1),
                         100.0,
                         15
         );
@@ -88,5 +89,41 @@ public class QualityControllerTest {
         expected.add(edam);
         assertEquals(expected, shop.getFoodList());
         assertThat(shop.getFoodList().get(0).getPrice(), is(85.0));
+    }
+
+    @Test
+    public void whenResortFoodFromWarehouseToShopThenWarehouseEmpty() {
+        List<Food> foodList = new ArrayList<>();
+        Food edam = new Cheese(
+                "Edam",
+                LocalDate.now().plusDays(120),
+                LocalDate.now().minusDays(1),
+                100,
+                15
+        );
+        Food salmon = new Fish(
+                "Salmon",
+                LocalDate.now().plusDays(120),
+                LocalDate.now().minusDays(1),
+                200,
+                5
+        );
+        foodList.add(edam);
+        foodList.add(salmon);
+        Storage shop = new Shop();
+        Storage warehouse = new Warehouse();
+        List<Storage> storages = List.of(shop, warehouse);
+        QualityController controller = new QualityController(storages);
+        for (Food food : foodList) {
+            controller.executeStorage(food);
+        }
+        List<Food> expected = List.of(edam, salmon);
+        assertEquals(expected, warehouse.getFoodList());
+        edam.setExpiryDate(LocalDate.now().plusDays(2));
+        salmon.setExpiryDate(LocalDate.now().plusDays(2));
+        controller.resort();
+        List<Food> newExpected = List.of(edam, salmon);
+        assertEquals(newExpected, shop.getFoodList());
+        assertEquals(warehouse.getFoodList(), Collections.emptyList());
     }
 }

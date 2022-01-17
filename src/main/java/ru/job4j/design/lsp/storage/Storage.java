@@ -10,6 +10,10 @@ public abstract class Storage {
         return new ArrayList<>(foodList);
     }
 
+    public void deleteFoodFromStorage() {
+        foodList.clear();
+    }
+
     public boolean execute(Food food) {
         if (accept(food)) {
             return foodList.add(food);
