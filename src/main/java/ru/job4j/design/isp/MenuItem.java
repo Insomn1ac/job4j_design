@@ -24,6 +24,11 @@ public class MenuItem implements Menu {
     }
 
     @Override
+    public Action getAction() {
+        return action;
+    }
+
+    @Override
     public Action select(String itemName) {
         if (!itemName.equals(name)) {
             throw new IllegalArgumentException("Action doesn't exist.");

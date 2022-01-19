@@ -10,5 +10,7 @@ public interface Menu {
 
     List<Menu> getMenuList();
 
+    Action getAction();
+
     Action select(String itemName);
 }

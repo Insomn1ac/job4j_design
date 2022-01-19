@@ -20,29 +20,32 @@ public class Composite implements Menu {
         return menuList;
     }
 
+    @Override
+    public Action getAction() {
+        return action;
+    }
+
     public String getName() {
         return name;
     }
 
     @Override
     public Action select(String itemName) {
+        Optional<Action> rsl = Optional.empty();
         if (itemName.equals(name)) {
             return action;
         }
-        if (showMenu().contains(itemName)) {
-            for (Menu menu : menuList) {
-                if (itemName.equals(menu.getName())) {
-                    return menu.select(itemName);
-                } else {
-                    for (Menu subMenu : menu.getMenuList()) {
-                        if (itemName.equals(subMenu.getName())) {
-                            return subMenu.select(itemName);
-                        }
-                    }
-                }
+        Queue<Menu> queue = new LinkedList<>();
+        queue.offer(this);
+        while (!queue.isEmpty()) {
+            Menu child = queue.poll();
+            if (child.getName().equals(itemName)) {
+                rsl = Optional.of(child.getAction());
+                break;
             }
+            queue.addAll(child.getMenuList());
         }
-        throw new IllegalArgumentException("Action doesn't exist.");
+        return rsl.get();
     }
 
     public boolean add(String itemName, String childName, Action action) {
