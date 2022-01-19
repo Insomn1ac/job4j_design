@@ -11,6 +11,10 @@ public class Client {
         Composite main = new Composite("Задача 1.", new ReturnForReworkAction());
         main.addToMenu(composite1);
         main.addToMenu(composite2);
-        main.showMenu();
+        System.out.println(main.showMenu());
+        main.add(composite1.getName(), "--------- Задача 1.1.3.", new ReturnForReworkAction());
+        main.add(main.getName(), "---- Задача 1.3.", new MarkAsCloseAction());
+        System.out.println(main.showMenu());
+        System.out.println(main.select("--------- Задача 1.1.2.").doAction());
     }
 }

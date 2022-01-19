@@ -1,7 +1,6 @@
 package ru.job4j.design.isp;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Composite implements Menu {
     private final List<Menu> menuList = new ArrayList<>();
@@ -17,20 +16,48 @@ public class Composite implements Menu {
         this.name = name;
     }
 
+    public List<Menu> getMenuList() {
+        return menuList;
+    }
+
     public String getName() {
         return name;
     }
 
     @Override
-    public void showMenu() {
-        if (action != null) {
-            System.out.printf("%-30s %s%n", getName(), action.doAction());
+    public Action select(String itemName) {
+        if (itemName.equals(name)) {
+            return action;
+        }
+        if (showMenu().contains(itemName)) {
+            for (Menu menu : menuList) {
+                if (itemName.equals(menu.getName())) {
+                    return menu.select(itemName);
+                } else {
+                    for (Menu subMenu : menu.getMenuList()) {
+                        if (itemName.equals(subMenu.getName())) {
+                            return subMenu.select(itemName);
+                        }
+                    }
+                }
+            }
+        }
+        throw new IllegalArgumentException("Action doesn't exist.");
+    }
+
+    public boolean add(String itemName, String childName, Action action) {
+        if (itemName.equals(name)) {
+            menuList.add(new MenuItem(childName, action));
         } else {
-            System.out.println(getName());
+            for (Menu menu : menuList) {
+                if (itemName.equals(menu.getName())) {
+                    return menu.getMenuList().add(new MenuItem(childName, action));
+                } else {
+                    throw new IllegalArgumentException("Enter valid task name!");
+                }
+            }
         }
-        for (Menu menu : menuList) {
-            menu.showMenu();
-        }
+        return true;
     }
 
     public void addToMenu(Menu menu) {
@@ -38,5 +65,14 @@ public class Composite implements Menu {
             throw new IllegalArgumentException("Task \"" + menu.getName() + "\" cannot be put into \"" + name + "\"");
         }
         menuList.add(menu);
+    }
+
+    @Override
+    public String showMenu() {
+        StringBuilder rsl = new StringBuilder(getName()).append("\n");
+        for (Menu menu : menuList) {
+            rsl.append(menu.showMenu());
+        }
+        return rsl.toString();
     }
 }

@@ -1,5 +1,7 @@
 package ru.job4j.design.isp;
 
+import java.util.List;
+
 public class MenuItem implements Menu {
     private final String name;
     private Action action;
@@ -17,12 +19,20 @@ public class MenuItem implements Menu {
         return name;
     }
 
+    public List<Menu> getMenuList() {
+        return List.of(this);
+    }
+
     @Override
-    public void showMenu() {
-        if (action != null) {
-            System.out.printf("%-30s %s%n", getName(), action.doAction());
-        } else {
-            System.out.println(getName());
+    public Action select(String itemName) {
+        if (!itemName.equals(name)) {
+            throw new IllegalArgumentException("Action doesn't exist.");
         }
+        return action;
+    }
+
+    @Override
+    public String showMenu() {
+        return getName() + System.lineSeparator();
     }
 }
