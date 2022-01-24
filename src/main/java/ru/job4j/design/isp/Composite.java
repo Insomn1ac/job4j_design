@@ -39,7 +39,7 @@ public class Composite implements Menu {
         queue.offer(this);
         while (!queue.isEmpty()) {
             Menu child = queue.poll();
-            if (child.getName().equals(itemName)) {
+            if (itemName.equals(child.getName())) {
                 rsl = Optional.of(child.getAction());
                 break;
             }
@@ -48,19 +48,29 @@ public class Composite implements Menu {
         return rsl.get();
     }
 
+    public boolean findBy(String itemName) {
+        boolean find = itemName.equals(name);
+        for (Menu menu : menuList) {
+            if (itemName.equals(menu.getName())) {
+                find = true;
+            }
+        }
+        return find;
+    }
+
     public boolean add(String itemName, String childName, Action action) {
-        if (itemName.equals(name)) {
-            menuList.add(new MenuItem(childName, action));
-        } else {
-            for (Menu menu : menuList) {
-                if (itemName.equals(menu.getName())) {
-                    return menu.getMenuList().add(new MenuItem(childName, action));
-                } else {
-                    throw new IllegalArgumentException("Enter valid task name!");
+        if (findBy(itemName)) {
+            if (itemName.equals(name)) {
+                return menuList.add(new MenuItem(childName, action));
+            } else {
+                for (Menu menu : menuList) {
+                    if (itemName.equals(menu.getName())) {
+                        return menu.getMenuList().add(new MenuItem(childName, action));
+                    }
                 }
             }
         }
-        return true;
+        return false;
     }
 
     public void addToMenu(Menu menu) {
@@ -72,7 +82,7 @@ public class Composite implements Menu {
 
     @Override
     public String showMenu() {
-        StringBuilder rsl = new StringBuilder(getName()).append("\n");
+        StringBuilder rsl = new StringBuilder(getName()).append(System.lineSeparator());
         for (Menu menu : menuList) {
             rsl.append(menu.showMenu());
         }
